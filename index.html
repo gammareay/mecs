@@ -13,7 +13,7 @@
    crossorigin=""></script>
    <script type='text/javascript' src='https://unpkg.com/leaflet.markercluster@1.4.0/dist/leaflet.markercluster.js'></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="women-mission.js"></script>
+  <script src="mecs.js"></script>
   <script src="leaflet-search-master/dist/leaflet-search.src.js"></script>
   <style>
     #map{ height: 100% }
@@ -37,7 +37,7 @@
     }).addTo(map);
 
   // load GeoJSON from an external file
-  $.getJSON("women-mission.geojson",function(data){
+  $.getJSON("mecs.geojson",function(data){
       var guitarIcon = L.icon({
       iconUrl: 'house.png',
       iconSize: [40,30]
@@ -45,7 +45,7 @@
     var drewbands = L.geoJson(data  ,{
       pointToLayer: function(feature,latlng){
   	     var marker = L.marker(latlng,{icon: guitarIcon});
-         marker.bindPopup(feature.properties.name + '<br/>' + feature.properties.name_other + '<br/>' + feature.properties.town_mission + '<br/>' + feature.properties.date + '<br/>' + feature.properties.citation);
+         marker.bindPopup(feature.properties.Name + '<br/>' + feature.properties.Date + '<br/>' + feature.properties.Other + '<br/>' + feature.properties.Sex + '<br/>' + feature.properties.Citation);
          return marker;
       }
     });
@@ -56,14 +56,15 @@
   // JSON Data for search layer
     const searchLayer = L.geoJSON(women_mission, {
       onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.name);
+        layer.bindPopup(feature.properties.Name);
+        layer.bindPopup(feature.properties.Date);
       }
     }).addTo(map);
 
     //Control Search
     const searchControl = new L.Control.Search ({
       layer: searchLayer,
-      propertyName: 'name'
+      propertyName: 'Name'
     });
 
     map.addControl(searchControl);
