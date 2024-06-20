@@ -56,8 +56,7 @@
   // JSON Data for search layer
     const searchLayer = L.geoJSON(women_mission, {
       onEachFeature: function(feature, layer) {
-        layer.bindPopup(feature.properties.Name);
-        layer.bindPopup(feature.properties.Date);
+        layer.bindPopup(feature.properties.Name + '<br/>' + feature.properties.Date + '<br/>' + feature.properties.Other);
       }
     }).addTo(map);
 
